@@ -1,0 +1,29 @@
+###
+GET http://localhost:80/xaml/0.0.1 HTTP/1.1
+
+### 注册
+POST http://localhost:80/users/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "bcmray",
+    "email": "bcmray@qq.com",
+    "password":"114514"
+}
+
+### 登录
+POST http://localhost:80/users/login HTTP/1.1
+content-type: application/json
+
+{
+    "account":"bcmray",
+    "password":"114514"
+}
+
+### 获取信息
+POST http://localhost:80/users/online HTTP/1.1
+content-type: application/json
+
+{
+    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.EhhwoXjWshFm3fYkMbOL8VQPcxjj9wQ9W-igdaq71U0"
+}

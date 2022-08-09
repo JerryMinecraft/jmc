@@ -1,0 +1,32 @@
+{
+    "name": "jmc",
+    "version": "1.0.0",
+    "main": "launch.js",
+    "author": "bcmray_crazy",
+    "license": "MIT",
+    "type": "module",
+    "scripts": {
+        "start": "node launch.js -p",
+        "test": "nodemon launch.js",
+        "prettier": "prettier --write . --config ./src/config/prettier.config.cjs",
+        "mocha": "mocha"
+    },
+    "dependencies": {
+        "body-parser": "^1.20.0",
+        "chalk": "^5.0.1",
+        "compression": "^1.7.4",
+        "crypto": "^1.0.1",
+        "express": "^4.18.1",
+        "json-web-token": "^3.2.0",
+        "knex": "^2.2.0",
+        "lodash": "^4.17.21",
+        "mime": "^3.0.0",
+        "pino-http": "^8.2.0",
+        "sqlite3": "^5.0.11"
+    },
+    "devDependencies": {
+        "mocha": "^10.0.0",
+        "nodemon": "^2.0.19",
+        "prettier": "^2.7.1"
+    }
+}
