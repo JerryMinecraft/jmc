@@ -1,15 +1,15 @@
 {
     "name": "jmc",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "main": "launch.js",
     "author": "bcmray_crazy",
     "license": "MIT",
     "type": "module",
     "scripts": {
         "start": "node launch.js -p",
-        "test": "nodemon launch.js",
+        "dev": "nodemon launch.js",
         "prettier": "prettier --write . --config ./src/config/prettier.config.cjs",
-        "mocha": "mocha"
+        "test": "mocha"
     },
     "dependencies": {
         "body-parser": "^1.20.0",
