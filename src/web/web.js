@@ -21,7 +21,7 @@ export default () => {
     };
     const options = {
         key: fs.readFileSync('./src/web/static/www.jerrymc.cn.key'),
-        cert: fs.readFileSync('./src/web/static/www.jerrymc.cn.pem'),
+        cert: fs.readFileSync('./src/web/static/www.jerrymc.cn_bundle.crt'),
     };
 
     app.use(
@@ -40,18 +40,18 @@ export default () => {
     app.use('/users', UserRouter);
     app.use('/whitelist', WhitelistRouter);
 
-    // if (isProd) {
-    //     var server = https.createServer(options, app);
-    //     server.listen(port.ssl, () => {
-    //         console.log(
-    //             chalk.green(
-    //                 'JMC应用在端口' + typeof server.address() == 'string'
-    //                     ? server.address()
-    //                     : server.address().port + '开启'
-    //             )
-    //         );
-    //     });
-    // }
+    if (isProd) {
+        var server = https.createServer(options, app);
+        server.listen(port.ssl, () => {
+            console.log(
+                chalk.green(
+                    'JMC应用在端口' + typeof server.address() == 'string'
+                        ? server.address()
+                        : server.address().port + '开启'
+                )
+            );
+        });
+    }
     app.listen(port.default, () => {
         console.log(chalk.green('JMC应用在端口' + port.default + '开启'));
     });

@@ -2,16 +2,14 @@ import _knex from 'knex';
 import dbConfig from '../../config/db.config.js';
 
 export let findUser = async (name, id, email) => {
-    if (!name) name = '';
-    if (!id) id = -1;
-    if (!email) email = '';
-
     var knex = _knex(dbConfig);
-    var res = await knex
-        .where({ name })
-        .orWhere({ id })
-        .orWhere({ email })
-        .from('users');
+    var finder = knex;
+
+    if (name) finder = finder.where({ name });
+    if (id) finder = finder.where({ id });
+    if (email) finder = finder.where({ email });
+
+    var res = await finder.from('users');
 
     return res;
 };

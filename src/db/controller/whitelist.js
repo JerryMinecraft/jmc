@@ -14,17 +14,14 @@ export let changeWhitelistStatus = async (id, status) => {
     return res;
 };
 export let findWhitelist = async (nickname, uid, status, id) => {
-    if (!nickname) nickname = '';
-    if (!uid) uid = 0;
-    if (!status) status = 0;
-    if (!id) id = 0;
-
     var knex = _knex(dbConfig);
-    var res = await knex
-        .where({ nickname })
-        .orWhere({ uid })
-        .orWhere({ status })
-        .orWhere({ id })
-        .from('whitelist');
+    var finder = knex;
+
+    if (nickname) finder = finder.where({ nickname });
+    if (uid) finder = finder.where({ uid });
+    if (status) finder.where({ status });
+    if (id) finder.where({ id });
+
+    var res = await finder.from('whitelist');
     return res;
 };

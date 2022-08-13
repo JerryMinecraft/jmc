@@ -35,5 +35,17 @@ content-type: application/json
 {
     "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.EhhwoXjWshFm3fYkMbOL8VQPcxjj9wQ9W-igdaq71U0",
     "nickname":"bcmray",
-    "does":"炸图"
+    "does":"我也不知道来干啥"
 }
+
+### 获取列表
+POST http://localhost:80/whitelist/list HTTP/1.1
+content-type: application/json
+
+{
+    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.EhhwoXjWshFm3fYkMbOL8VQPcxjj9wQ9W-igdaq71U0",
+    "nickname":"bcmray",
+    "status":1
+}
+
+###  更改白名单

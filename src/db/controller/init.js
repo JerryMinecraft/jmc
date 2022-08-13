@@ -1,5 +1,6 @@
 import _knex from 'knex';
 import dbConfig from '../../config/db.config.js';
+import md5 from '../../web/help/md5.js';
 
 import chalk from 'chalk';
 
@@ -7,7 +8,7 @@ async function createTable(
     knex = _knex(),
     isProd = false,
     table = '',
-    notExists = async() => {}
+    notExists = async () => {}
 ) {
     var hasTable = knex.schema.hasTable(table);
     if (hasTable) {
@@ -22,11 +23,11 @@ async function createTable(
     console.log(chalk.green('[i]数据库表格', table, '创建/覆盖完成!'));
 }
 
-export default async(isProd = false) => {
+export default async (isProd = false) => {
     console.log(chalk.cyan('[i]正在初始化数据库'));
 
     var knex = _knex(dbConfig);
-    await createTable(knex, isProd, 'users', async() => {
+    await createTable(knex, isProd, 'users', async () => {
         await knex.schema.createTable('users', (builder) => {
             builder.increments('id');
             builder.string('name');
@@ -55,7 +56,7 @@ export default async(isProd = false) => {
             builder.integer('adminLevel').defaultTo(0);
         });
     });
-    await createTable(knex, isProd, 'whitelist', async() => {
+    await createTable(knex, isProd, 'whitelist', async () => {
         await knex.schema.createTable('whitelist', (builder) => {
             builder.increments('id');
 
@@ -73,4 +74,21 @@ export default async(isProd = false) => {
             builder.integer('status').defaultTo(0);
         });
     });
+    console.log(
+        '创建默认服主用户 id:',
+        (
+            await knex
+                .insert(
+                    {
+                        name: 'bcmray',
+                        email: 'bcmray@qq.com',
+                        password: md5('114514'),
+                        isAdmin: true,
+                        adminLevel: 4,
+                    },
+                    'id'
+                )
+                .into('users')
+        )[0]
+    );
 };

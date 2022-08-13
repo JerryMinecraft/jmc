@@ -10,7 +10,7 @@ import { addUser, findUser } from '../../db/controller/user.js';
 const router = express.Router();
 const _jwtSecret = 'jmcNb!!!!!!!';
 
-router.post('/register', async(req, res) => {
+router.post('/register', async (req, res) => {
     var body = req.body;
     // 验证请求体
     if (!body.name || !body.email || !body.password)
@@ -24,7 +24,7 @@ router.post('/register', async(req, res) => {
     res.status(200).send(genRes({ id: userId }));
 });
 
-router.post('/login', async(req, res) => {
+router.post('/login', async (req, res) => {
     var body = req.body;
     // 验证请求体
     if (!body.account || !body.password)
@@ -50,7 +50,7 @@ router.post('/login', async(req, res) => {
     });
 });
 
-router.post('/online', async(req, res) => {
+router.post('/online', async (req, res) => {
     var body = req.body;
     if (!body.token)
         return res.status(200).send(genRes('', false, '不完整的请求体'));
