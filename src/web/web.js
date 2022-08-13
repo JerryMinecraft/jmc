@@ -6,6 +6,7 @@ import express from 'express';
 import https from 'https';
 import MyPageRouter from './routers/MyPageRouter.js';
 import UserRouter from './routers/UsersRouter.js';
+import WhitelistRouter from './routers/WhitelistRouter.js';
 
 import fs from 'fs';
 import pino from 'pino-http';
@@ -24,18 +25,20 @@ export default () => {
     };
 
     app.use(
-        pino({
-            stream: fs.createWriteStream(
-                './src/log/' + new Date().toString().replace(' ', '_') + '.log',
-                'utf-8'
-            ),
-        })
+        // pino({
+        //     stream: fs.createWriteStream(
+        //         './src/log/' + new Date().toString().replace(' ', '_') + '.log',
+        //         'utf-8'
+        //     ),
+        // })
+        pino()
     );
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
 
     app.use('/xaml', MyPageRouter);
     app.use('/users', UserRouter);
+    app.use('/whitelist', WhitelistRouter);
 
     // if (isProd) {
     //     var server = https.createServer(options, app);
@@ -50,6 +53,6 @@ export default () => {
     //     });
     // }
     app.listen(port.default, () => {
-        console.log(chalk.green('JMC应用在端口' + port.default+'开启'));
+        console.log(chalk.green('JMC应用在端口' + port.default + '开启'));
     });
 };

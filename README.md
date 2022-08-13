@@ -5,4 +5,4 @@
 ![all passedd](https://img.shields.io/badge/tests-100%25%20passed-green)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/bcmRayCrazy-coder/jmc)
 
-JerryMc的网站后台
+JerryMc 的网站后台

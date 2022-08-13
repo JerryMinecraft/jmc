@@ -7,7 +7,7 @@ async function createTable(
     knex = _knex(),
     isProd = false,
     table = '',
-    notExists = async () => {}
+    notExists = async() => {}
 ) {
     var hasTable = knex.schema.hasTable(table);
     if (hasTable) {
@@ -22,11 +22,11 @@ async function createTable(
     console.log(chalk.green('[i]数据库表格', table, '创建/覆盖完成!'));
 }
 
-export default async (isProd = false) => {
+export default async(isProd = false) => {
     console.log(chalk.cyan('[i]正在初始化数据库'));
 
     var knex = _knex(dbConfig);
-    await createTable(knex, isProd, 'users', async () => {
+    await createTable(knex, isProd, 'users', async() => {
         await knex.schema.createTable('users', (builder) => {
             builder.increments('id');
             builder.string('name');
@@ -41,11 +41,36 @@ export default async (isProd = false) => {
             builder.integer('exp').defaultTo(0);
             builder.integer('gold').defaultTo(0);
 
-            builder.boolean('inWhitelist').defaultTo(false);
             builder.integer('sponsershipAmount').defaultTo(0);
 
             builder.boolean('isAdmin').defaultTo(false);
+            /**
+             * Admin level
+             * 0 普通用户
+             * 1 白名单审核员
+             * 2 管理员
+             * 3 管理机器人专用
+             * 4 服主
+             */
             builder.integer('adminLevel').defaultTo(0);
+        });
+    });
+    await createTable(knex, isProd, 'whitelist', async() => {
+        await knex.schema.createTable('whitelist', (builder) => {
+            builder.increments('id');
+
+            builder.integer('uid');
+            builder.string('nickname');
+
+            builder.string('does');
+            /**
+             * Status
+             * 0 审核中
+             * 1 通过
+             * 2 驳回
+             * 3 封禁
+             */
+            builder.integer('status').defaultTo(0);
         });
     });
 };

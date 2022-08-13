@@ -8,7 +8,7 @@
     "scripts": {
         "start": "node launch.js -p",
         "dev": "nodemon launch.js",
-        "prettier": "prettier --write . --config ./src/config/prettier.config.cjs",
+        "lint": "prettier --write . --config ./src/config/prettier.config.cjs",
         "test": "mocha"
     },
     "dependencies": {
@@ -25,6 +25,7 @@
         "sqlite3": "^5.0.11"
     },
     "devDependencies": {
+        "@types/express": "^4.17.13",
         "mocha": "^10.0.0",
         "nodemon": "^2.0.19",
         "prettier": "^2.7.1"
