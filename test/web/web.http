@@ -43,9 +43,15 @@ POST http://localhost:80/whitelist/list HTTP/1.1
 content-type: application/json
 
 {
-    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.EhhwoXjWshFm3fYkMbOL8VQPcxjj9wQ9W-igdaq71U0",
-    "nickname":"bcmray",
-    "status":1
+    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.EhhwoXjWshFm3fYkMbOL8VQPcxjj9wQ9W-igdaq71U0"
 }
 
 ###  更改白名单
+POST http://localhost:80/whitelist/change HTTP/1.1
+content-type: application/json
+
+{
+    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.EhhwoXjWshFm3fYkMbOL8VQPcxjj9wQ9W-igdaq71U0",
+    "id":1,
+    "status":1
+}
