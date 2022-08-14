@@ -1,11 +1,12 @@
 import express from 'express';
 import jwt from 'json-web-token';
+import validator from 'validator';
 
 import genRes from '../help/genRes.js';
 import getUserData from '../help/getUserData.js';
 import md5 from '../help/md5.js';
 
-import { addUser, findUser } from '../../db/controller/user.js';
+import { addUser, findUser, setUser } from '../../db/controller/user.js';
 
 const router = express.Router();
 const _jwtSecret = 'jmcNb!!!!!!!';
@@ -58,6 +59,23 @@ router.post('/online', async (req, res) => {
     var p = await getUserData(body.token);
     if (p.error) return res.send(genRes({ err: true, msg: p.error, data: {} }));
     res.send(genRes({ err: false, msg: '', data: p.userData }));
+});
+
+router.post('/upload_avatar', async (req, res) => {
+    var body = req.body;
+    if (!body.token || !body.avatar)
+        return res.status(200).send(genRes('', false, '不完整的请求体'));
+
+    var p = await getUserData(body.token);
+    if (p.error) return res.send(genRes({ err: true, msg: p.error, data: {} }));
+    var userData = p.userData;
+    // 验证userData.avatar是否是dataUri
+    if (!validator.isDataURI(body.avatar))
+        return res.status(200).send(genRes('', false, '头像类型不符合'));
+
+    userData.avatar = body.avatar;
+    var id = await setUser(userData.id, userData);
+    res.send(genRes({ id }));
 });
 
 export default router;

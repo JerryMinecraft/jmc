@@ -18,3 +18,8 @@ export let addUser = async (name, password, email = '') => {
     var res = await knex.insert({ name, password, email }, 'id').into('users');
     return res;
 };
+export let setUser = async (id, data) => {
+    var knex = _knex(dbConfig);
+    var res = await knex.where({ id }).from('users').update(data);
+    return res;
+};
