@@ -67,3 +67,19 @@ content-type: application/json
 
 ### (mc)查找白名单
 GET http://localhost:80/mcserver/whitelist/bcmray HTTP/1.1
+
+###
+POST http://localhost:80/sm/t HTTP/1.1
+content-type: application/json
+
+{ 
+    "stroke_color":"#8cb4ff",
+    "current_station":"abc",
+    "next_station":"ef",
+    "current_line":"8", 
+    "change_line":"3",
+    "change_line_color":"#d22"
+}
+
+###
+GET http://localhost:80/sm

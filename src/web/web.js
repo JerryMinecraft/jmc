@@ -9,6 +9,7 @@ import MyPageRouter from './routers/MyPageRouter.js';
 import UserRouter from './routers/UsersRouter.js';
 import WhitelistRouter from './routers/WhitelistRouter.js';
 import McServerRouter from './routers/McServerRouter.js';
+import StationMakerRouter from './routers/StationMakerRouter.js';
 
 import fs from 'fs';
 import pino from 'pino-http';
@@ -44,18 +45,19 @@ export default () => {
     app.use('/users', UserRouter);
     app.use('/whitelist', WhitelistRouter);
     app.use('/mcserver', McServerRouter);
+    app.use('/sm', StationMakerRouter);
 
     var server = https.createServer(options, app);
     server.listen(port.ssl, () => {
         console.log(
             chalk.green(
-                'JMC应用在端口' + typeof server.address() == 'string'
-                    ? server.address()
-                    : server.address().port + '开启'
+                'JMC应用在端口' + typeof server.address() == 'string' ?
+                server.address() :
+                server.address().port + '开启'
             )
         );
     });
     app.listen(port.default, () => {
-        console.log(chalk.green('JMC应用在端口' + port.default + '开启'));
+        console.log(chalk.green('JMC应用在端口' + port.default+'开启'));
     });
 };

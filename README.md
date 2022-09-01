@@ -29,3 +29,7 @@ JerryMc 的网站后台
     -   /whitelist
         -   /:nickname
             -   查看`nickname`玩家是否通过白名单(可进入游戏)
+
+-   /sm
+    -   /t
+        -   生成带换乘站的站牌
