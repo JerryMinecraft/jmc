@@ -51,13 +51,13 @@ export default () => {
     server.listen(port.ssl, () => {
         console.log(
             chalk.green(
-                'JMC应用在端口' + typeof server.address() == 'string' ?
-                server.address() :
-                server.address().port + '开启'
+                'JMC应用在端口' + typeof server.address() == 'string'
+                    ? server.address()
+                    : server.address().port + '开启'
             )
         );
     });
     app.listen(port.default, () => {
-        console.log(chalk.green('JMC应用在端口' + port.default+'开启'));
+        console.log(chalk.green('JMC应用在端口' + port.default + '开启'));
     });
 };

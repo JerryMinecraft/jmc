@@ -11,7 +11,7 @@ import {
 
 const router = express.Router();
 
-router.post('/request', async(req, res) => {
+router.post('/request', async (req, res) => {
     var body = req.body;
     if (!body.nickname || !body.does || !body.token)
         return res.send(genRes({}, false, '不完整的请求体'));
@@ -23,7 +23,7 @@ router.post('/request', async(req, res) => {
     res.send(genRes({ requestId }));
 });
 
-router.post('/list', async(req, res) => {
+router.post('/list', async (req, res) => {
     // TODO: 获取白名单请求列表
     var body = req.body;
     if (!body.token) return res.send(genRes({}, false, '不完整的请求体'));
@@ -36,7 +36,7 @@ router.post('/list', async(req, res) => {
     res.send({ list });
 });
 
-router.post('/change', async(req, res) => {
+router.post('/change', async (req, res) => {
     // TODO: 更改白名单,adminLevel大于0可使用
     var body = req.body;
     if (!body.token || body.id == undefined || !body.status == undefined)
