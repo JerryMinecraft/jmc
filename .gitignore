@@ -2,3 +2,5 @@ node_modules
 yarn.lock
 
 src/log/*
+
+db/developingDb.sqlite

@@ -21,8 +21,7 @@ router.post('/t', (req, res) => {
         change_line,
         change_line_color,
     } = req.body;
-    if (
-        !current_line ||
+    if (!current_line ||
         !current_station ||
         !next_station ||
         !stroke_color ||
@@ -31,7 +30,7 @@ router.post('/t', (req, res) => {
     )
         return res.send(genRes({}, false, '不完整的参数'));
 
-    var name = `t_line${current_line}_station${current_station}_ns${next_station}_next${next_station}_color${stroke_color}_cline${change_line}_ccolor${change_line_color}.png`;
+    var name = `t_line${current_line}_station${current_station}_ns${next_station}_next${next_station}_color${stroke_color}_cline${change_line}_ccolor${change_line_color.replace('#','')}.png`;
     var p = path.join('src/web/static/station/imgs/', name);
 
     if (fs.existsSync(p))
