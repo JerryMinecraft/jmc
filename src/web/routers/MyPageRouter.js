@@ -17,6 +17,16 @@ const router = express.Router();
  * min: 2ms
  * max: 3ms
  */
+
+/**
+ * @api {get} /xaml/:version 获取PCL2主页JMC自定页面
+ * @apiName PCL2页面
+ * @apiGroup My page
+ * 
+ * @apiParam {String} version 版本
+ * 
+ * @apiSuccess {String} PCL2页面内容
+ */
 router.get('/:version', (req, res) => {
     var current = xamlConfig[req.params.version];
     req.log.info('Getting xaml version: ' + req.params.version);

@@ -8,10 +8,32 @@ import genRes from '../help/genRes.js';
 
 const router = express.Router();
 
+/**
+ * @api {get} /sm 获取station maker状态
+ * @apiName 状态
+ * @apiGroup Station maker
+ * 
+ * @apiSuccess {String} ok为可用
+ */
 router.get('/', (req, res) => {
-    res.send('ok');
+    res.send('stopped');
 });
 
+/**
+ * @api {post} /sm/t 创建站牌
+ * @apiName 站牌创建
+ * @apiGroup Station maker
+ * 
+ * @apiBody {String} current_line 目前线路
+ * @apiBody {String} current_station 目前站台
+ * @apiBody {String} next_station 下一站站台
+ * @apiBody {String} stroke_color 目前线路线条颜色
+ * @apiBody {String} change_line 换乘线路
+ * @apiBody {String} change_line_color 换乘线路线条颜色
+ * 
+ * @apiSuccess {String} path 生成的站牌图片路径
+ * @apiError BodyError 不完整的请求体
+ */
 router.post('/t', (req, res) => {
     const {
         current_line,
@@ -21,8 +43,7 @@ router.post('/t', (req, res) => {
         change_line,
         change_line_color,
     } = req.body;
-    if (
-        !current_line ||
+    if (!current_line ||
         !current_station ||
         !next_station ||
         !stroke_color ||
@@ -61,6 +82,14 @@ router.post('/t', (req, res) => {
     res.send(genRes({ path: '/sm/static/' + name }));
 });
 
+/**
+ * @api {get} /sm/static 获取生成的图片
+ * @apiName 图片获取
+ * @apiGroup Station maker
+ * 
+ * @apiSuccess {String} data 存储内容
+ * @apiError 404NotFound 不存在的内容
+ */
 router.use(
     '/static',
     express.static(path.join('src/web/static/station/imgs/'))

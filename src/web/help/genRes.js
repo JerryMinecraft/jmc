@@ -7,3 +7,11 @@ export default (message, success = true, error = '') => {
         error,
     };
 };
+
+export let errRes = {
+    userExists: 'UserExists',
+    userNotExists: 'UserNotExists',
+    bodyError: 'BodyError',
+    passwordError: 'PasswordError',
+    permissionDenied: 'PermissionDenied'
+}
