@@ -15,21 +15,22 @@ const _jwtSecret = 'jmcNb!!!!!!!';
  * @api {post} /users/register 注册新用户
  * @apiName 注册
  * @apiGroup User
- * 
+ *
  * @apiBody {String} name 用户名
- * 
+ *
  * @apiSuccess {Number} id 用户id
  * @apiError BodyError 不完整的请求体
  * @apiError UserExists 用户已存在
  */
-router.post('/register', async(req, res) => {
+router.post('/register', async (req, res) => {
     var body = req.body;
     // 验证请求体
     if (!body.name || !body.email || !body.password)
         return res.status(200).send(genRes('', false, errRes.bodyError));
 
     var hasUser = (await findUser(body.name)).length > 0;
-    if (hasUser) return res.status(200).send(genRes('', false, errRes.userExists));
+    if (hasUser)
+        return res.status(200).send(genRes('', false, errRes.userExists));
 
     var userId = (await addUser(body.name, md5(body.password), body.email))[0];
 
@@ -40,16 +41,16 @@ router.post('/register', async(req, res) => {
  * @api {post} /users/login 用户登陆
  * @apiName 登陆
  * @apiGroup User
- * 
+ *
  * @apiBody {String} account 用户信息
  * @apiBody {String} password 密码
- * 
+ *
  * @apiSuccess {String} token 用户唯一标识
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存在
  * @apiError PasswordError 密码错误
  */
-router.post('/login', async(req, res) => {
+router.post('/login', async (req, res) => {
     var body = req.body;
     // 验证请求体
     if (!body.account || !body.password)
@@ -79,14 +80,14 @@ router.post('/login', async(req, res) => {
  * @api {post} /users/online 获取用户信息
  * @apiName 用户信息获取
  * @apiGroup User
- * 
+ *
  * @apiBody {String} token 用户唯一标识
- * 
+ *
  * @apiSuccess {UserData} data 用户信息
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存在
  */
-router.post('/online', async(req, res) => {
+router.post('/online', async (req, res) => {
     var body = req.body;
     if (!body.token)
         return res.status(200).send(genRes('', false, errRes.bodyError));
@@ -100,10 +101,10 @@ router.post('/online', async(req, res) => {
  * @api {post} /users/upload_avatar 上传头像
  * @apiName 头像上传
  * @apiGroup User
- * 
+ *
  * @apiIgnore 未完成
  */
-router.post('/upload_avatar', async(req, res) => {
+router.post('/upload_avatar', async (req, res) => {
     var body = req.body;
     if (!body.token || !body.avatar)
         return res.status(200).send(genRes('', false, errRes.bodyError));
@@ -124,11 +125,11 @@ router.post('/upload_avatar', async(req, res) => {
  * @api {post} /users/add_player 添加游戏内玩家
  * @apiName 玩家添加
  * @apiGroup 用户
- * 
+ *
  * @apiIgnore 未完成
  */
-router.post('/add_player', async(req, res) => {
+router.post('/add_player', async (req, res) => {
     var body = req.body;
-})
+});
 
 export default router;

@@ -26,6 +26,7 @@ async function createTable(
 export default async (isProd = false) => {
     console.log(chalk.cyan('[i]正在初始化数据库'));
 
+    // 用户
     var knex = _knex(dbConfig);
     await createTable(knex, isProd, 'users', async () => {
         await knex.schema.createTable('users', (builder) => {
@@ -53,10 +54,14 @@ export default async (isProd = false) => {
              * 2 管理员
              * 3 管理机器人专用
              * 4 服主
+             *
+             * -------已废弃--------
              */
             builder.integer('adminLevel').defaultTo(0);
         });
     });
+
+    // 白名单
     await createTable(knex, isProd, 'whitelist', async () => {
         await knex.schema.createTable('whitelist', (builder) => {
             builder.increments('id');
@@ -75,6 +80,17 @@ export default async (isProd = false) => {
             builder.integer('status').defaultTo(0);
         });
     });
+
+    // 权限
+    await createTable(knex, isProd, 'permissions', async () => {
+        await knex.schema.createTable('permissions', (builder) => {
+            builder.integer('uid');
+            builder.string('permission');
+            builder.boolean('value');
+            builder.timestamp('expire').defaultTo(0);
+        });
+    });
+
     console.log(
         '创建默认服主用户 id:',
         (

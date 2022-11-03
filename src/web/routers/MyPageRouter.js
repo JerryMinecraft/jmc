@@ -22,9 +22,9 @@ const router = express.Router();
  * @api {get} /xaml/:version 获取PCL2主页JMC自定页面
  * @apiName PCL2页面
  * @apiGroup My page
- * 
+ *
  * @apiParam {String} version 版本
- * 
+ *
  * @apiSuccess {String} PCL2页面内容
  */
 router.get('/:version', (req, res) => {

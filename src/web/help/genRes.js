@@ -13,5 +13,5 @@ export let errRes = {
     userNotExists: 'UserNotExists',
     bodyError: 'BodyError',
     passwordError: 'PasswordError',
-    permissionDenied: 'PermissionDenied'
-}
+    permissionDenied: 'PermissionDenied',
+};

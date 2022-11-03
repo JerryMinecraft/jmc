@@ -4,25 +4,25 @@ const ios = {
     counter: {
         requestCounter: io.counter({
             name: 'Total requests',
-            id: 'app/requests/total'
+            id: 'app/requests/total',
         }),
 
         pcl2RequestCounter: io.counter({
             name: 'Total requests',
-            id: 'app/requests/pcl2'
+            id: 'app/requests/pcl2',
         }),
         whitelistRequestCounter: io.counter({
             name: 'Whitelist requests',
-            id: 'app/requests/whitelist'
+            id: 'app/requests/whitelist',
         }),
         userRequestCounter: io.counter({
             name: 'User requests',
-            id: 'app/requests/user'
+            id: 'app/requests/user',
         }),
         serverRequestCounter: io.counter({
             name: 'MC server requests',
-            id: 'app/requests/server'
-        })
+            id: 'app/requests/server',
+        }),
     },
 };
 

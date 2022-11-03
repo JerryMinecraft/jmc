@@ -13,12 +13,12 @@ const router = express.Router();
  * @api {get} /mcserver/whitelist/:nickname 获取玩家是否在白名单内
  * @apiName 是否在白名单内信息获取
  * @apiGroup Minecraft
- * 
+ *
  * @apiParam {String} nickname 玩家游戏名
- * 
+ *
  * @apiSuccess {String} back yes或no
  */
-router.get('/whitelist/:nickname', async(req, res) => {
+router.get('/whitelist/:nickname', async (req, res) => {
     if (!req.params.nickname) return res.send('no');
     var list = await findWhitelist(req.params.nickname);
     var back = 'no';
