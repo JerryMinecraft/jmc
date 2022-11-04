@@ -1,19 +1,24 @@
 import _knex from 'knex';
 import dbConfig from '../../config/db.config.js';
+import { getRandomHash } from '../../web/help/lib.js';
 
-export let findPermission = async (uid) => {
+export let findPermission = async(uid) => {
     var knex = _knex(dbConfig);
-    var res = await knex.where({ uid }).from('permissions');
-    console.log(res);
-
-    return res;
+    return await knex.where({ uid }).from('permissions');
 };
 
-export let addPermission = async (
+export let matchHashPermission = async(phash) => {
+    var knex = _knex(dbConfig);
+    return await knex.where({ phash }).from('permissions');
+};
+
+export let addPermission = async(
     uid,
     permission,
     value = true,
-    expire = 0
+    importance = 5,
+    expire = 0,
+    phash = getRandomHash()
 ) => {
     var knex = _knex(dbConfig);
 
@@ -23,13 +28,34 @@ export let addPermission = async (
     });
     if (exists) return;
 
-    await knex.insert({ uid, permission, expire, value }).into('permissions');
+    return await knex
+        .insert({ uid, permission, expire, value, importance, phash }, 'phash')
+        .into('permissions');
 };
 
-export let changePermission = async (
+export let matchPermission = async(
+    uid,
+    permission,
+    value,
+    importance,
+    expire
+) => {
+    var knex = _knex(dbConfig);
+
+    var finder = knex;
+    if (uid) finder = finder.where({ uid });
+    if (permission) finder = finder.where({ permission });
+    if (value) finder = finder.where({ importance });
+    if (expire) finder = finder.where({ expire });
+
+    return await finder.from('permissions');
+};
+
+export let changePermission = async(
     uid,
     permission,
     targetPermission,
     targetExpire,
-    targetValue
+    targetValue,
+    targetImportance
 ) => {};

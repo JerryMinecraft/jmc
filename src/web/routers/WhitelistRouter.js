@@ -8,6 +8,8 @@ import {
     changeWhitelistStatus,
     findWhitelist,
 } from '../../db/controller/whitelist.js';
+import { withPermission } from '../permissions/PermissionMiddleware.js';
+import PermissionList from '../permissions/PermissionList.js';
 
 const router = express.Router();
 
@@ -15,6 +17,7 @@ const router = express.Router();
  * @api {post} /whitelist/request 发送白名单申请
  * @apiName 申请
  * @apiGroup Whitelist
+ * @apiPermission user.whitelist.request
  *
  * @apiBody {String} nickname 游戏名
  * @apiBody {String} does 所做
@@ -24,11 +27,11 @@ const router = express.Router();
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存在
  *
- * @apiVersion 1.2.6
+ * @apiVersion 1.2.7
  */
-router.post('/request', async (req, res) => {
+router.post('/request', withPermission(PermissionList.user.whitelist.request), async(req, res) => {
     var body = req.body;
-    if (!body.nickname || !body.does || !body.token)
+    if (!body.nickname || !body.does)
         return res.send(genRes({}, false, errRes.bodyError));
 
     var { error, userData } = await getUserData(body.token);
@@ -42,6 +45,7 @@ router.post('/request', async (req, res) => {
  * @api {post} /whitelist/list 获取白名单请求列表
  * @apiName 请求列表获取
  * @apiGroup Whitelist
+ * @apiPermission 1.2.7
  *
  * @apiBody {String} token 用户唯一标识
  * @apiBody {String} [nickname] 玩家名
@@ -51,11 +55,12 @@ router.post('/request', async (req, res) => {
  * @apiSuccess {Number} requstId 请求id
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存
+ * 
+ * @apiVersion 1.2.7
  */
-router.post('/list', async (req, res) => {
+router.post('/list', withPermission(PermissionList.user.whitelist.get), async(req, res) => {
     // 获取白名单请求列表
     var body = req.body;
-    if (!body.token) return res.send(genRes({}, false, errRes.bodyError));
 
     var { error, userData } = await getUserData(body.token);
     if (error) return res.send(genRes({ err: true, msg: error, data: {} }));
@@ -69,6 +74,7 @@ router.post('/list', async (req, res) => {
  * @api {post} /whitelist/change 修改白名单审核状态
  * @apiName 审核状态修改
  * @apiGroup Whitelist
+ * @apiPermission admin.whitelist.set
  *
  * @apiBody {String} token 用户唯一标识
  * @apiBody {Number} id 用户id
@@ -78,11 +84,13 @@ router.post('/list', async (req, res) => {
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存在
  * @apiError PermissionDenied 权限不足
+ * 
+ * @apiVersion 1.2.7
  */
-router.post('/change', async (req, res) => {
+router.post('/change', withPermission(PermissionList.admin.whitelist.set), async(req, res) => {
     // 更改白名单,adminLevel大于0可使用
     var body = req.body;
-    if (!body.token || body.id == undefined || !body.status == undefined)
+    if (body.id == undefined || !body.status == undefined)
         return res.send(genRes({}, false, errRes.bodyError));
 
     var { error, userData } = await getUserData(body.token);

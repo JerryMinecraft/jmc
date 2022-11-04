@@ -1,7 +1,13 @@
 {
     "name": "JMC Api",
-    "version": "1.2.6",
+    "version": "1.2.7",
     "description": "JMC后端Api文档",
     "title": "JMC Api",
-    "url": "http://www.jerrymc.cn/"
+    "url": "http://www.jerrymc.cn/",
+    "apidoc": {
+        "header": {
+            "title": "前言",
+            "filename": "_apidoc/header.md"
+        }
+    }
 }

@@ -6,7 +6,7 @@ POST http://localhost:80/users/register HTTP/1.1
 content-type: application/json
 
 {
-    "name": "bcmray",
+    "name": "bcmray1",
     "email": "bcmray@qq.com",
     "password":"114514"
 }
@@ -16,7 +16,7 @@ POST http://localhost:80/users/login HTTP/1.1
 content-type: application/json
 
 {
-    "account":"bcmray",
+    "account":"bcmray1",
     "password":"114514"
 }
 
@@ -25,7 +25,7 @@ POST http://localhost:80/users/online HTTP/1.1
 content-type: application/json
 
 {
-    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.EhhwoXjWshFm3fYkMbOL8VQPcxjj9wQ9W-igdaq71U0"
+    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Mn0.RNeFDX7SxiSNOPNx5b43BuahR8UMZgzYbLRjmOfmGak"
 }
 
 ### 更改头像

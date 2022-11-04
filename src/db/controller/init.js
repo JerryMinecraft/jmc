@@ -84,12 +84,18 @@ export default async (isProd = false) => {
     // 权限
     await createTable(knex, isProd, 'permissions', async () => {
         await knex.schema.createTable('permissions', (builder) => {
+            builder.string('phash');
+
             builder.integer('uid');
             builder.string('permission');
             builder.boolean('value');
+            builder.integer('importance');
+
             builder.timestamp('expire').defaultTo(0);
         });
     });
+
+    knex.insert();
 
     console.log(
         '创建默认服主用户 id:',

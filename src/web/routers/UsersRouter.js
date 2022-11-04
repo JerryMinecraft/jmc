@@ -7,6 +7,9 @@ import getUserData from '../help/getUserData.js';
 import md5 from '../help/md5.js';
 
 import { addUser, findUser, setUser } from '../../db/controller/user.js';
+import { addPermission } from '../../db/controller/permissions.js';
+import { withPermission } from '../permissions/PermissionMiddleware.js';
+import PermissionList from '../permissions/PermissionList.js';
 
 const router = express.Router();
 const _jwtSecret = 'jmcNb!!!!!!!';
@@ -21,8 +24,10 @@ const _jwtSecret = 'jmcNb!!!!!!!';
  * @apiSuccess {Number} id 用户id
  * @apiError BodyError 不完整的请求体
  * @apiError UserExists 用户已存在
+ * 
+ * @apiVersion 1.2.7
  */
-router.post('/register', async (req, res) => {
+router.post('/register', async(req, res) => {
     var body = req.body;
     // 验证请求体
     if (!body.name || !body.email || !body.password)
@@ -33,6 +38,9 @@ router.post('/register', async (req, res) => {
         return res.status(200).send(genRes('', false, errRes.userExists));
 
     var userId = (await addUser(body.name, md5(body.password), body.email))[0];
+
+    // 给予用户默认权限
+    addPermission(userId, PermissionList.user._, true, 5);
 
     res.status(200).send(genRes({ id: userId }));
 });
@@ -49,8 +57,10 @@ router.post('/register', async (req, res) => {
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存在
  * @apiError PasswordError 密码错误
+ * 
+ * @apiVersion 1.2.7
  */
-router.post('/login', async (req, res) => {
+router.post('/login', async(req, res) => {
     var body = req.body;
     // 验证请求体
     if (!body.account || !body.password)
@@ -80,17 +90,18 @@ router.post('/login', async (req, res) => {
  * @api {post} /users/online 获取用户信息
  * @apiName 用户信息获取
  * @apiGroup User
+ * @apiPermission user.data.get
  *
  * @apiBody {String} token 用户唯一标识
  *
  * @apiSuccess {UserData} data 用户信息
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存在
+ * 
+ * @apiVersion 1.2.7
  */
-router.post('/online', async (req, res) => {
+router.post('/online', withPermission(PermissionList.user.data.get), async(req, res) => {
     var body = req.body;
-    if (!body.token)
-        return res.status(200).send(genRes('', false, errRes.bodyError));
 
     var p = await getUserData(body.token);
     if (p.error) return res.send(genRes({ err: true, msg: p.error, data: {} }));
@@ -103,8 +114,10 @@ router.post('/online', async (req, res) => {
  * @apiGroup User
  *
  * @apiIgnore 未完成
+ * 
+ * @apiVersion 1.2.7
  */
-router.post('/upload_avatar', async (req, res) => {
+router.post('/upload_avatar', async(req, res) => {
     var body = req.body;
     if (!body.token || !body.avatar)
         return res.status(200).send(genRes('', false, errRes.bodyError));
@@ -127,8 +140,10 @@ router.post('/upload_avatar', async (req, res) => {
  * @apiGroup 用户
  *
  * @apiIgnore 未完成
+ * 
+ * @apiVersion 1.2.7
  */
-router.post('/add_player', async (req, res) => {
+router.post('/add_player', async(req, res) => {
     var body = req.body;
 });
 

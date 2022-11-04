@@ -1,6 +1,7 @@
-import genRes from '../help/genRes';
-import { findPermission } from '../../db/controller/permissions';
-import getUserData from '../help/getUserData';
+import genRes from '../help/genRes.js';
+import { findPermission } from '../../db/controller/permissions.js';
+import getUserData from '../help/getUserData.js';
+import { hasPermission } from './PermissionController.js';
 
 /**
  *  Permission Error Code
@@ -24,15 +25,25 @@ export let genPermissionRes = (permissionId) => {
 };
 
 export function withPermission(permissionId) {
-    return async (req, res, next) => {
+    return async(req, res, next) => {
         if (!req.body.token) {
             res.send(genRes(noTokenRes, false, 'permission'));
             next('route');
+            return;
         }
-        var userPermissions = await permissionDb.findPermission(
-            (
-                await getUserData(req.body.token)
-            ).id
-        );
+        var p = await getUserData(req.body.token)
+        if (!p || p.error) {
+            res.send(genRes(noTokenRes, false, 'permission'));
+            next('route');
+            return;
+        }
+        var userData = p.userData;
+        var canUse = await hasPermission(userData.id, permissionId);
+        if (!canUse) {
+            res.send(genPermissionRes(permissionId));
+            next('route');
+            return;
+        }
+        next();
     };
 }
