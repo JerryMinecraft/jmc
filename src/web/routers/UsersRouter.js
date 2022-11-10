@@ -25,9 +25,9 @@ const _jwtSecret = 'jmcNb!!!!!!!';
  * @apiError BodyError 不完整的请求体
  * @apiError UserExists 用户已存在
  *
- * @apiVersion 1.2.7
+ * @apiVersion 1.2.8
  */
-router.post('/register', async (req, res) => {
+router.post('/register', async(req, res) => {
     var body = req.body;
     // 验证请求体
     if (!body.name || !body.email || !body.password)
@@ -58,9 +58,9 @@ router.post('/register', async (req, res) => {
  * @apiError UserNotExists 用户不存在
  * @apiError PasswordError 密码错误
  *
- * @apiVersion 1.2.7
+ * @apiVersion 1.2.8
  */
-router.post('/login', async (req, res) => {
+router.post('/login', async(req, res) => {
     var body = req.body;
     // 验证请求体
     if (!body.account || !body.password)
@@ -98,12 +98,12 @@ router.post('/login', async (req, res) => {
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存在
  *
- * @apiVersion 1.2.7
+ * @apiVersion 1.2.8
  */
 router.post(
     '/online',
     withPermission(PermissionList.user.data.get),
-    async (req, res) => {
+    async(req, res) => {
         var body = req.body;
 
         var p = await getUserData(body.token);
@@ -120,9 +120,9 @@ router.post(
  *
  * @apiIgnore 未完成
  *
- * @apiVersion 1.2.7
+ * @apiVersion 1.2.8
  */
-router.post('/upload_avatar', async (req, res) => {
+router.post('/upload_avatar', async(req, res) => {
     var body = req.body;
     if (!body.token || !body.avatar)
         return res.status(200).send(genRes('', false, errRes.bodyError));
@@ -146,9 +146,9 @@ router.post('/upload_avatar', async (req, res) => {
  *
  * @apiIgnore 未完成
  *
- * @apiVersion 1.2.7
+ * @apiVersion 1.2.8
  */
-router.post('/add_player', async (req, res) => {
+router.post('/add_player', async(req, res) => {
     var body = req.body;
 });
 

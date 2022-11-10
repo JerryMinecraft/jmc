@@ -21,12 +21,12 @@ const router = express.Router();
  *
  * @apiSuccess {String} back yes或no
  *
- * @apiVersion 1.2.7
+ * @apiVersion 1.2.8
  */
 router.get(
     '/whitelist/:nickname',
     withPermission(PermissionList.user.whitelist.get),
-    async (req, res) => {
+    async(req, res) => {
         if (!req.params.nickname) return res.send('no');
         var list = await findWhitelist(req.params.nickname);
         var back = 'no';

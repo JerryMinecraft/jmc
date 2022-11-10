@@ -27,7 +27,7 @@ const router = express.Router();
  *
  * @apiSuccess {String} PCL2页面内容
  *
- * @apiVersion 1.2.7
+ * @apiVersion 1.2.8
  */
 router.get('/:version', (req, res) => {
     var current = xamlConfig[req.params.version];

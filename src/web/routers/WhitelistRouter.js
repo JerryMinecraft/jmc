@@ -27,12 +27,12 @@ const router = express.Router();
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存在
  *
- * @apiVersion 1.2.7
+ * @apiVersion 1.2.8
  */
 router.post(
     '/request',
     withPermission(PermissionList.user.whitelist.request),
-    async (req, res) => {
+    async(req, res) => {
         var body = req.body;
         if (!body.nickname || !body.does)
             return res.send(genRes({}, false, errRes.bodyError));
@@ -60,12 +60,12 @@ router.post(
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存
  *
- * @apiVersion 1.2.7
+ * @apiVersion 1.2.8
  */
 router.post(
     '/list',
     withPermission(PermissionList.user.whitelist.get),
-    async (req, res) => {
+    async(req, res) => {
         // 获取白名单请求列表
         var body = req.body;
 
@@ -93,12 +93,12 @@ router.post(
  * @apiError UserNotExists 用户不存在
  * @apiError PermissionDenied 权限不足
  *
- * @apiVersion 1.2.7
+ * @apiVersion 1.2.8
  */
 router.post(
     '/change',
     withPermission(PermissionList.admin.whitelist.set),
-    async (req, res) => {
+    async(req, res) => {
         // 更改白名单,adminLevel大于0可使用
         var body = req.body;
         if (body.id == undefined || !body.status == undefined)
