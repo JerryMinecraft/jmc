@@ -14,7 +14,7 @@ const router = express.Router();
  * @apiGroup Station maker
  *
  * @apiSuccess {String} ok为可用
- * 
+ *
  * @apiVersion 1.2.7
  */
 router.get('/', (req, res) => {
@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
  *
  * @apiSuccess {String} path 生成的站牌图片路径
  * @apiError BodyError 不完整的请求体
- * 
+ *
  * @apiVersion 1.2.7
  */
 router.post('/t', (req, res) => {
@@ -47,7 +47,8 @@ router.post('/t', (req, res) => {
         change_line,
         change_line_color,
     } = req.body;
-    if (!current_line ||
+    if (
+        !current_line ||
         !current_station ||
         !next_station ||
         !stroke_color ||
@@ -93,7 +94,7 @@ router.post('/t', (req, res) => {
  *
  * @apiSuccess {String} data 存储内容
  * @apiError 404NotFound 不存在的内容
- * 
+ *
  * @apiVersion 1.2.7
  */
 router.use(

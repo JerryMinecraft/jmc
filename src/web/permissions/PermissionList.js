@@ -16,13 +16,13 @@ export default {
         data: {
             _: 'user.data',
             get: 'user.data.get',
-            set: 'user.data.set'
+            set: 'user.data.set',
         },
         whitelist: {
             _: 'user.whitelist',
             request: 'user.whitelist.request',
             delete: 'user.whitelist.delete',
-            get: 'user.whitelist.get'
-        }
-    }
+            get: 'user.whitelist.get',
+        },
+    },
 };

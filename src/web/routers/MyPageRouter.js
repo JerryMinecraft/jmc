@@ -26,7 +26,7 @@ const router = express.Router();
  * @apiParam {String} version 版本
  *
  * @apiSuccess {String} PCL2页面内容
- * 
+ *
  * @apiVersion 1.2.7
  */
 router.get('/:version', (req, res) => {

@@ -1,13 +1,16 @@
-import { matchHashPermission, matchPermission } from '../../db/controller/permissions.js';
+import {
+    matchHashPermission,
+    matchPermission,
+} from '../../db/controller/permissions.js';
 import { getCurrentTimestamp } from '../help/lib.js';
 
-export let checkPermissionExpired = async(phash) => {
+export let checkPermissionExpired = async (phash) => {
     var permission = await matchHashPermission(phash);
     if (!permission) return true;
     return permission.expire != 0 && permission.expire <= getCurrentTimestamp();
 };
 
-export let hasPermission = async(uid, targetPermission) => {
+export let hasPermission = async (uid, targetPermission) => {
     var splitedTargetPermission = targetPermission.split('.');
 
     var currentValue = false;
@@ -28,7 +31,6 @@ export let hasPermission = async(uid, targetPermission) => {
                     currentValue = _perm.value;
                 }
             }
-
         }
     }
     // 返回

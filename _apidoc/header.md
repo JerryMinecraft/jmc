@@ -4,12 +4,15 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 ## 介绍
-这是JMC的接口文档, 里面列举了JMC后台的所有API
+
+这是 JMC 的接口文档, 里面列举了 JMC 后台的所有 API
 
 ## 链接
-JMC官网 [点击此处](http://www.jerrymc.cn:1200/)  
-JMC API文档 [点击此处](http://www.jerrymc.cn:930/)
+
+JMC 官网 [点击此处](http://www.jerrymc.cn:1200/)  
+JMC API 文档 [点击此处](http://www.jerrymc.cn:930/)
 
 ## 贡献者
-- bcmray_crazy (bcmray@qq.com)
-- ItzJerry (little_jerry@outlook.com)
+
+-   bcmray_crazy (bcmray@qq.com)
+-   ItzJerry (little_jerry@outlook.com)

@@ -25,13 +25,13 @@ export let genPermissionRes = (permissionId) => {
 };
 
 export function withPermission(permissionId) {
-    return async(req, res, next) => {
+    return async (req, res, next) => {
         if (!req.body.token) {
             res.send(genRes(noTokenRes, false, 'permission'));
             next('route');
             return;
         }
-        var p = await getUserData(req.body.token)
+        var p = await getUserData(req.body.token);
         if (!p || p.error) {
             res.send(genRes(noTokenRes, false, 'permission'));
             next('route');

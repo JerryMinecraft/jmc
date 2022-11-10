@@ -29,17 +29,21 @@ const router = express.Router();
  *
  * @apiVersion 1.2.7
  */
-router.post('/request', withPermission(PermissionList.user.whitelist.request), async(req, res) => {
-    var body = req.body;
-    if (!body.nickname || !body.does)
-        return res.send(genRes({}, false, errRes.bodyError));
+router.post(
+    '/request',
+    withPermission(PermissionList.user.whitelist.request),
+    async (req, res) => {
+        var body = req.body;
+        if (!body.nickname || !body.does)
+            return res.send(genRes({}, false, errRes.bodyError));
 
-    var { error, userData } = await getUserData(body.token);
-    if (error) return res.send(genRes({ err: true, msg: error, data: {} }));
+        var { error, userData } = await getUserData(body.token);
+        if (error) return res.send(genRes({ err: true, msg: error, data: {} }));
 
-    var requestId = await addRequest(userData.id, body.nickname, body.does);
-    res.send(genRes({ requestId }));
-});
+        var requestId = await addRequest(userData.id, body.nickname, body.does);
+        res.send(genRes({ requestId }));
+    }
+);
 
 /**
  * @api {post} /whitelist/list 获取白名单请求列表
@@ -55,20 +59,24 @@ router.post('/request', withPermission(PermissionList.user.whitelist.request), a
  * @apiSuccess {Number} requstId 请求id
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存
- * 
+ *
  * @apiVersion 1.2.7
  */
-router.post('/list', withPermission(PermissionList.user.whitelist.get), async(req, res) => {
-    // 获取白名单请求列表
-    var body = req.body;
+router.post(
+    '/list',
+    withPermission(PermissionList.user.whitelist.get),
+    async (req, res) => {
+        // 获取白名单请求列表
+        var body = req.body;
 
-    var { error, userData } = await getUserData(body.token);
-    if (error) return res.send(genRes({ err: true, msg: error, data: {} }));
+        var { error, userData } = await getUserData(body.token);
+        if (error) return res.send(genRes({ err: true, msg: error, data: {} }));
 
-    var { nickname, status, uid } = req.body;
-    var list = await findWhitelist(nickname, uid, status);
-    res.send({ list });
-});
+        var { nickname, status, uid } = req.body;
+        var list = await findWhitelist(nickname, uid, status);
+        res.send({ list });
+    }
+);
 
 /**
  * @api {post} /whitelist/change 修改白名单审核状态
@@ -84,23 +92,29 @@ router.post('/list', withPermission(PermissionList.user.whitelist.get), async(re
  * @apiError BodyError 不完整的请求体
  * @apiError UserNotExists 用户不存在
  * @apiError PermissionDenied 权限不足
- * 
+ *
  * @apiVersion 1.2.7
  */
-router.post('/change', withPermission(PermissionList.admin.whitelist.set), async(req, res) => {
-    // 更改白名单,adminLevel大于0可使用
-    var body = req.body;
-    if (body.id == undefined || !body.status == undefined)
-        return res.send(genRes({}, false, errRes.bodyError));
+router.post(
+    '/change',
+    withPermission(PermissionList.admin.whitelist.set),
+    async (req, res) => {
+        // 更改白名单,adminLevel大于0可使用
+        var body = req.body;
+        if (body.id == undefined || !body.status == undefined)
+            return res.send(genRes({}, false, errRes.bodyError));
 
-    var { error, userData } = await getUserData(body.token);
-    if (error) return res.send(genRes({ err: true, msg: error, data: {} }));
+        var { error, userData } = await getUserData(body.token);
+        if (error) return res.send(genRes({ err: true, msg: error, data: {} }));
 
-    if (userData.adminLevel <= 0)
-        return res.send(genRes({ err: true, msg: errRes.permissionDenied }));
+        if (userData.adminLevel <= 0)
+            return res.send(
+                genRes({ err: true, msg: errRes.permissionDenied })
+            );
 
-    var id = await changeWhitelistStatus(body.id, body.status);
-    res.send(genRes({ id }));
-});
+        var id = await changeWhitelistStatus(body.id, body.status);
+        res.send(genRes({ id }));
+    }
+);
 
 export default router;

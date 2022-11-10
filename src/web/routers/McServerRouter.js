@@ -20,17 +20,21 @@ const router = express.Router();
  * @apiParam {String} nickname 玩家游戏名
  *
  * @apiSuccess {String} back yes或no
- * 
+ *
  * @apiVersion 1.2.7
  */
-router.get('/whitelist/:nickname', withPermission(PermissionList.user.whitelist.get), async(req, res) => {
-    if (!req.params.nickname) return res.send('no');
-    var list = await findWhitelist(req.params.nickname);
-    var back = 'no';
-    list.forEach((u) => {
-        if (u.status == 1) back = 'yes';
-    });
-    res.send(back);
-});
+router.get(
+    '/whitelist/:nickname',
+    withPermission(PermissionList.user.whitelist.get),
+    async (req, res) => {
+        if (!req.params.nickname) return res.send('no');
+        var list = await findWhitelist(req.params.nickname);
+        var back = 'no';
+        list.forEach((u) => {
+            if (u.status == 1) back = 'yes';
+        });
+        res.send(back);
+    }
+);
 
 export default router;
