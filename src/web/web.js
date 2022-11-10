@@ -5,15 +5,10 @@ const isProd = process.argv.includes('-p');
 import express from 'express';
 import https from 'https';
 
-import MyPageRouter from './routers/MyPageRouter.js';
-import UserRouter from './routers/UsersRouter.js';
-import WhitelistRouter from './routers/WhitelistRouter.js';
-import McServerRouter from './routers/McServerRouter.js';
-import StationMakerRouter from './routers/StationMakerRouter.js';
-
 import fs from 'fs';
 import pino from 'pino-http';
 import bodyParser from 'body-parser';
+import routerSetup from './routerSetup.js';
 
 export default () => {
     console.log(chalk.cyan('[i]正在启动web服务器'));
@@ -38,14 +33,12 @@ export default () => {
         // })
         pino()
     );
+    // post解析
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
 
-    app.use('/xaml', MyPageRouter);
-    app.use('/users', UserRouter);
-    app.use('/whitelist', WhitelistRouter);
-    app.use('/mcserver', McServerRouter);
-    app.use('/sm', StationMakerRouter);
+    // 路由
+    routerSetup(app);
 
     var server = https.createServer(options, app);
     server.listen(port.ssl, () => {

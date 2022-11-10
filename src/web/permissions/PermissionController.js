@@ -4,8 +4,7 @@ import {
 } from '../../db/controller/permissions.js';
 import { getCurrentTimestamp } from '../help/lib.js';
 
-export let checkPermissionExpired = async (phash) => {
-    var permission = await matchHashPermission(phash);
+export let checkPermissionExpired = async (permission) => {
     if (!permission) return true;
     return permission.expire != 0 && permission.expire <= getCurrentTimestamp();
 };
@@ -25,7 +24,7 @@ export let hasPermission = async (uid, targetPermission) => {
         for (let index = 0; index < permission.length; index++) {
             const _perm = permission[index];
             // 检查是否过期, 若重复按权重设置
-            if (!(await checkPermissionExpired(_perm.phash))) {
+            if (!(await checkPermissionExpired(_perm))) {
                 if (_perm.importance > currentImportance) {
                     currentImportance = _perm.importance;
                     currentValue = _perm.value;

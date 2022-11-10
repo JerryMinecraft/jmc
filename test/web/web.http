@@ -83,3 +83,9 @@ content-type: application/json
 
 ###
 GET http://localhost:80/sm
+
+### 获取权限列表
+GET http://localhost:80/admin/permissions/list HTTP/1.1
+
+### 获取原权限列表
+GET http://localhost:80/admin/permissions/rawlist HTTP/1.1

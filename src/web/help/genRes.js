@@ -14,4 +14,7 @@ export let errRes = {
     bodyError: 'BodyError',
     passwordError: 'PasswordError',
     permissionDenied: 'PermissionDenied',
+    unknownAction: 'UnknownAction',
+
+    developing: 'Developing',
 };

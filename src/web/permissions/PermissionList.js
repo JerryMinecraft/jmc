@@ -9,6 +9,7 @@ export default {
         permissoins: {
             _: 'admin.permissions',
             set: 'admin.permissions.set',
+            get: 'admin.permissions.get',
         },
     },
     user: {

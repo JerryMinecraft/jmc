@@ -12,3 +12,18 @@ export let getRandomHash = (hashLength = 16) => {
         hash += text[Math.floor(Math.random() * hashLength)];
     return hash;
 };
+
+export let getAllObjectStringValue = (obj) => {
+    var v = [];
+    for (const key in obj) {
+        if (Object.hasOwnProperty.call(obj, key)) {
+            const value = obj[key];
+            if (typeof value == 'string') {
+                v.push(value);
+            } else {
+                v.push(...getAllObjectStringValue(value));
+            }
+        }
+    }
+    return v;
+};
