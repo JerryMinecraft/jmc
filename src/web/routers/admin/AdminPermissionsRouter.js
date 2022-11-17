@@ -42,7 +42,7 @@ router.get('/list', (req, res) => {
  * @api {get} /admin/permissions/data/:action/:value 获取权限数据
  * @apiName 权限数据获取
  * @apiGroup Admin
- * 
+ *
  * @apiParam {String} action 获取方式 (目前支持phash和uid两种方式)
  * @apiParam {String} value 获取的值
  *
@@ -53,7 +53,7 @@ router.get('/list', (req, res) => {
 router.get(
     '/data/:action/:value',
     withPermission(PermissionList.admin.permissoins.get),
-    async(req, res) => {
+    async (req, res) => {
         switch (req.params.action) {
             case 'phash':
                 var permissions = await matchHashPermission(req.params.value);

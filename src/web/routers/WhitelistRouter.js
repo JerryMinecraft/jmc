@@ -32,7 +32,7 @@ const router = express.Router();
 router.post(
     '/request',
     withPermission(PermissionList.user.whitelist.request),
-    async(req, res) => {
+    async (req, res) => {
         var body = req.body;
         if (!body.nickname || !body.does)
             return res.send(genRes({}, false, errRes.bodyError));
@@ -65,7 +65,7 @@ router.post(
 router.post(
     '/list',
     withPermission(PermissionList.user.whitelist.get),
-    async(req, res) => {
+    async (req, res) => {
         // 获取白名单请求列表
         var body = req.body;
 
@@ -98,7 +98,7 @@ router.post(
 router.post(
     '/change',
     withPermission(PermissionList.admin.whitelist.set),
-    async(req, res) => {
+    async (req, res) => {
         // 更改白名单,adminLevel大于0可使用
         var body = req.body;
         if (body.id == undefined || !body.status == undefined)

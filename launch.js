@@ -7,19 +7,28 @@ console.log(chalk.cyan('[*] 启动中……'));
 function main() {
     var args = process.argv;
 
-    console.log(chalk.bold.hex('#FF00FF')('[Tip] 目前环境:', args.includes('-p') ? '生产' : args.includes('--init-db') ? '初始化数据库' : '测试'));
+    console.log(
+        chalk.bold.hex('#FF00FF')(
+            '[Tip] 目前环境:',
+            args.includes('-p')
+                ? '生产'
+                : args.includes('--init-db')
+                ? '初始化数据库'
+                : '测试'
+        )
+    );
 
     if (args.includes('--init-db')) {
         // 初始化数据库
-        init(args.includes('-p'))
-        return
+        init(args.includes('-p'));
+        return;
     } else if (args.includes('-p')) {
         // 启动服务端
         launch();
         return;
     } else {
         // 测试环境
-        init(args.includes('-p'))
+        init(args.includes('-p'));
         launch();
         return;
     }

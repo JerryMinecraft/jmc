@@ -1,7 +1,7 @@
 import _knex from 'knex';
 import dbConfig from '../../config/db.config.js';
 
-export let findUser = async(name, id, email) => {
+export let findUser = async (name, id, email) => {
     var knex = _knex(dbConfig);
     var finder = knex;
 
@@ -13,12 +13,12 @@ export let findUser = async(name, id, email) => {
 
     return res;
 };
-export let addUser = async(name, password, email = '') => {
+export let addUser = async (name, password, email = '') => {
     var knex = _knex(dbConfig);
     var res = await knex.insert({ name, password, email }).into('users');
     return res;
 };
-export let setUser = async(id, data) => {
+export let setUser = async (id, data) => {
     var knex = _knex(dbConfig);
     var res = await knex.where({ id }).from('users').update(data);
     return res;

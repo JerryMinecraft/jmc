@@ -47,7 +47,8 @@ router.post('/t', (req, res) => {
         change_line,
         change_line_color,
     } = req.body;
-    if (!current_line ||
+    if (
+        !current_line ||
         !current_station ||
         !next_station ||
         !stroke_color ||

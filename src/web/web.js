@@ -28,7 +28,15 @@ export default () => {
     };
 
     // 日志
-    app.use(morgan(chalk.grey(`[Web] ${isProd ? '(:remote-addr) ':''}:method :url :status :res[content-length] - :response-time ms`)))
+    app.use(
+        morgan(
+            chalk.grey(
+                `[Web] ${
+                    isProd ? '(:remote-addr) ' : ''
+                }:method :url :status :res[content-length] - :response-time ms`
+            )
+        )
+    );
 
     // post解析
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,13 +49,18 @@ export default () => {
     server.listen(port.ssl, () => {
         console.log(
             chalk.bold.hex('#00FF00')(
-                '[ok] JMC应用在端口' + (typeof server.address() == 'string' ?
-                    server.address() :
-                    server.address().port + '开启')
+                '[ok] JMC应用在端口' +
+                    (typeof server.address() == 'string'
+                        ? server.address()
+                        : server.address().port + '开启')
             )
         );
     });
     app.listen(port.default, () => {
-        console.log(chalk.bold.hex('#00FF00')('[ok] JMC应用在端口' + port.default+'开启'));
+        console.log(
+            chalk.bold.hex('#00FF00')(
+                '[ok] JMC应用在端口' + port.default + '开启'
+            )
+        );
     });
 };
