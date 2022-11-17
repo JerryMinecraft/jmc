@@ -1,6 +1,6 @@
 {
     "name": "jmc",
-    "version": "1.2.8dev1",
+    "version": "1.2.8dev2",
     "main": "launch.js",
     "author": "bcmray_crazy",
     "license": "MIT",
@@ -10,7 +10,8 @@
         "dev": "nodemon launch.js",
         "lint": "prettier --write . --config ./src/config/prettier.config.cjs",
         "test": "mocha",
-        "makedoc": "apidoc -i src/web -o apidoc"
+        "makedoc": "apidoc -i src/web -o apidoc",
+        "initdb": "node launch.js --init-db"
     },
     "dependencies": {
         "@pm2/io": "^5.0.0",
@@ -25,7 +26,7 @@
         "knex": "^2.2.0",
         "lodash": "^4.17.21",
         "mime": "^3.0.0",
-        "pino-http": "^8.2.0",
+        "morgan": "^1.10.0",
         "sqlite3": "^5.0.11",
         "svg2png": "^4.1.1",
         "validator": "^13.7.0"

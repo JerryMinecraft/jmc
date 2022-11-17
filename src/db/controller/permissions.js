@@ -2,17 +2,17 @@ import _knex from 'knex';
 import dbConfig from '../../config/db.config.js';
 import { getRandomHash } from '../../web/help/lib.js';
 
-export let findPermission = async (uid) => {
+export let findPermission = async(uid) => {
     var knex = _knex(dbConfig);
     return await knex.where({ uid }).from('permissions');
 };
 
-export let matchHashPermission = async (phash) => {
+export let matchHashPermission = async(phash) => {
     var knex = _knex(dbConfig);
     return await knex.where({ phash }).from('permissions');
 };
 
-export let addPermission = async (
+export let addPermission = async(
     uid,
     permission,
     value = true,
@@ -29,11 +29,11 @@ export let addPermission = async (
     if (exists) return;
 
     return await knex
-        .insert({ uid, permission, expire, value, importance, phash }, 'phash')
+        .insert({ uid, permission, expire, value, importance, phash })
         .into('permissions');
 };
 
-export let matchPermission = async (
+export let matchPermission = async(
     uid,
     permission,
     value,
@@ -51,7 +51,7 @@ export let matchPermission = async (
     return await finder.from('permissions');
 };
 
-export let changePermission = async (
+export let changePermission = async(
     uid,
     permission,
     targetPermission,

@@ -3,5 +3,5 @@ yarn.lock
 
 src/log/*
 
-db/developingDb.sqlite
+db/*.sqlite
 apidoc/*

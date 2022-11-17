@@ -4,7 +4,6 @@ import initdb from './db/controller/init.js';
 import initWeb from './web/web.js';
 
 export default () => {
-    console.clear();
     // 进程事件
     process.on('exit', (code) => {
         console.log(
